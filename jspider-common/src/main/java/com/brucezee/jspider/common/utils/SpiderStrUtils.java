@@ -30,8 +30,8 @@ public class SpiderStrUtils {
      * @param content 原字符串
      * @param prefix 前缀
      * @param suffix 后缀
-     * @Param lazyPrefix 是否使用第一次找到的前缀作为截取前缀
-     * @Param lazySuffix 是否使用第一次找到的后缀作为截取后缀
+     * @param lazyPrefix 是否使用第一次找到的前缀作为截取前缀
+     * @param lazySuffix 是否使用第一次找到的后缀作为截取后缀
      * @return 没有找到返回null。
      */
     public static String getMiddleText(String content, String prefix, String suffix, boolean lazyPrefix, boolean lazySuffix) {
@@ -97,8 +97,8 @@ public class SpiderStrUtils {
      * @param content 原字符串
      * @param prefix 前缀
      * @param suffix 后缀
-     * @Param lazyPrefix 是否使用第一次找到的前缀作为截取前缀
-     * @Param lazySuffix 是否使用第一次找到的后缀作为截取后缀
+     * @param lazyPrefix 是否使用第一次找到的前缀作为截取前缀
+     * @param lazySuffix 是否使用第一次找到的后缀作为截取后缀
      * @return 没有找到返回null。
      */
     public static String getWholeText(String content, String prefix, String suffix, boolean lazyPrefix, boolean lazySuffix) {

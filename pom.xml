@@ -3,11 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.brucezee.jspider</groupId>
     <artifactId>jspider-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>jspider-parent</name>
+    <description>A simple, scalable, and highly efficient web crawler framework for Java.</description>
+    <url>https://github.com/brucezee/jspider/</url>
+    <developers>
+        <developer>
+            <id>brucezee</id>
+            <name>Zhou Bing</name>
+            <email>brucezee@163.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:brucezee/jspider.git</connection>
+        <developerConnection>scm:git:git@github.com:brucezee/jspider.git</developerConnection>
+        <url>git@github.com:brucezee/jspider.git</url>
+        <tag>jspider-parent-1.0</tag>
+    </scm>
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>http://www.opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
 
     <modules>
         <module>jspider-common</module>
@@ -17,7 +38,7 @@
         <module>jspider-redis</module>
         <module>jspider-selenium</module>
         <module>jspider-berkeley</module>
-        <module>jspider-springboot</module>
+        <!--<module>jspider-springboot</module>-->
         <module>jspider-mongodb</module>
     </modules>
 
@@ -27,6 +48,15 @@
 
         <httpclient.version>4.5.2</httpclient.version>
         <spring.version>4.2.4.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
+        <mongodb.version>3.4.1</mongodb.version>
+        <guava.version>20.0</guava.version>
+        <jsonpath.version>2.2.0</jsonpath.version>
+        <jsoup.version>1.10.1</jsoup.version>
+        <logback.version>1.1.8</logback.version>
+        <slf4j.version>1.7.22</slf4j.version>
+        <fastjson.version>1.2.23</fastjson.version>
+        <dom4j.version>1.6.1</dom4j.version>
     </properties>
 
     <dependencyManagement>
@@ -34,7 +64,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -47,42 +77,46 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>20.0</version>
+                <version>${guava.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.jayway.jsonpath</groupId>
                 <artifactId>json-path</artifactId>
-                <version>2.2.0</version>
+                <version>${jsonpath.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.10.1</version>
+                <version>${jsoup.version}</version>
             </dependency>
 
+            <!--slf4j-->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.22</version>
+                <version>${slf4j.version}</version>
             </dependency>
+            <!--logback-->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.1.8</version>
+                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
-                <version>1.1.8</version>
+                <version>${logback.version}</version>
             </dependency>
 
+            <!--fastjson-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.23</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
+            <!--commons-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
@@ -103,13 +137,6 @@
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.apache.commons</groupId>-->
-                <!--<artifactId>commons-pool2</artifactId>-->
-                <!--<version>2.4.2</version>-->
-            <!--</dependency>-->
-
-
 
             <!--redis-->
             <dependency>
@@ -123,10 +150,11 @@
                 <version>3.2.2</version>
             </dependency>
 
+            <!--dom4j-->
             <dependency>
                 <groupId>dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
+                <version>${dom4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>jaxen</groupId>
@@ -134,6 +162,7 @@
                 <version>1.1.6</version>
             </dependency>
 
+            <!--selenium-->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
@@ -146,20 +175,7 @@
                 <version>5.0.84</version>
             </dependency>
 
-            <!--<dependency>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-dependencies</artifactId>-->
-                <!--<version>1.4.3.RELEASE</version>-->
-                <!--<type>pom</type>-->
-                <!--<scope>import</scope>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.apache.httpcomponents</groupId>-->
-                <!--<artifactId>httpcore</artifactId>-->
-                <!--<version>4.4.4</version>-->
-            <!--</dependency>-->
-
-
+            <!--spring-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
@@ -221,15 +237,59 @@
                 <version>${spring.version}</version>
             </dependency>
 
-
+            <!--mongodb-->
             <dependency>
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
-                <version>3.4.1</version>
+                <version>${mongodb.version}</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -239,9 +299,34 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
         </plugins>
+
     </build>
 
 </project>
