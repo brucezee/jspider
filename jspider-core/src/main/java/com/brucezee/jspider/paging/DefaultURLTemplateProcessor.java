@@ -6,25 +6,22 @@ import com.brucezee.jspider.common.utils.SpiderStrUtils;
 import java.util.*;
 
 /**
- * 有占位符的url处理器，如http://www.nianshao.{me|com}/{menu|ticket|detail}?stype={1->2}&status={1|2|5}
+ * 有占位符的url处理器
  * Created by brucezee on 2017/1/19.
  */
 public class DefaultURLTemplateProcessor implements URLTemplateProcessor {
-    /**
 
-     URL占位符规则
-
-     {A|B|C} 多个参数合集 表示A，B，C
-     http://www.baidu.com/{user|home}/?type={1|2|4}
-     {1->10} 连续数字合集 表示[1,10]
-     http://www.baidu.com/{user|home}/?type={1->5}
-     {|A|B} {A|B|} 包含空串的多个参数合集 表示A，B以及空字符串
-     http://www.baidu.com/{user|home|}?type={1|2|4}
-     http://www.baidu.com/{|user|home}?type={1|2|4}
-     {0|3->5|7->8|} 单个参数与连续数字组合合集
-     http://www.baidu.com/{|user|home}?type={{0|3->5|7->8}}
-
-     */
+//     URL占位符规则
+//
+//     {A|B|C} 多个参数合集 表示A，B，C
+//     http://www.baidu.com/{user|home}/?type={1|2|4}
+//     {1->10} 连续数字合集 表示[1,10]
+//     http://www.baidu.com/{user|home}/?type={1->5}
+//     {|A|B} {A|B|} 包含空串的多个参数合集 表示A，B以及空字符串
+//     http://www.baidu.com/{user|home|}?type={1|2|4}
+//     http://www.baidu.com/{|user|home}?type={1|2|4}
+//     {0|3->5|7->8|} 单个参数与连续数字组合合集
+//     http://www.baidu.com/{|user|home}?type={{0|3->5|7->8}}
 
 
     private DefaultValuesHolder valuesHolder;

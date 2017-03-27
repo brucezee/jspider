@@ -38,9 +38,9 @@ public class BdbPersistentQueue<E extends Serializable> extends AbstractQueue<E>
 
     /**
      * 构造函数,传入BDB数据库
-     * @param db
-     * @param valueClass
-     * @param classCatalog
+     * @param db 数据库
+     * @param valueClass 值的类型
+     * @param classCatalog StoredClassCatalog
      */
     public BdbPersistentQueue(Database db, Class<E> valueClass, StoredClassCatalog classCatalog) {
         this.queueDb = db;
@@ -52,9 +52,9 @@ public class BdbPersistentQueue<E extends Serializable> extends AbstractQueue<E>
 
     /**
      * 构造函数,传入BDB数据库位置和名字,自己创建数据库
-     * @param dbDir
-     * @param dbName
-     * @param valueClass
+     * @param dbDir 数据文件路径
+     * @param dbName 数据库名
+     * @param valueClass 值类型
      */
     public BdbPersistentQueue(String dbDir, String dbName, Class<E> valueClass) {
         headIndex = new AtomicLong(0);
@@ -66,9 +66,9 @@ public class BdbPersistentQueue<E extends Serializable> extends AbstractQueue<E>
 
     /**
      * 绑定数据库
-     * @param db
-     * @param valueClass
-     * @param classCatalog
+     * @param db 数据库
+     * @param valueClass 值类型
+     * @param classCatalog StoredClassCatalog
      */
     public void bindDatabase(Database db, Class<E> valueClass, StoredClassCatalog classCatalog) {
         EntryBinding<E> valueBinding = TupleBinding.getPrimitiveBinding(valueClass);
@@ -85,11 +85,11 @@ public class BdbPersistentQueue<E extends Serializable> extends AbstractQueue<E>
 
     /**
      * 创建以及绑定数据库
-     * @param dbDir
-     * @param dbName
-     * @param valueClass
-     * @throws DatabaseException
-     * @throws IllegalArgumentException
+     * @param dbDir 数据库文件路径
+     * @param dbName 数据库名
+     * @param valueClass 值类型
+     * @throws DatabaseException 数据库异常
+     * @throws IllegalArgumentException 参数异常
      */
     private void createAndBindDatabase(String dbDir, String dbName,Class<E> valueClass) throws DatabaseException, IllegalArgumentException{
         File envFile = null;

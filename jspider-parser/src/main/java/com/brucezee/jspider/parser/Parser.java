@@ -20,7 +20,7 @@ public abstract class Parser {
      * @param data 待解析的页面
      * @param fieldDefine 字段解析定义
      * @param clazz 解析结果类
-     * @param <T>
+     * @param <T> 对象泛型
      * @return 解析结果对象
      */
     public <T> T parse(String data, FieldDefine fieldDefine, Class<T> clazz) {
@@ -33,7 +33,7 @@ public abstract class Parser {
      * @param fieldDefine 字段解析定义
      * @param clazz 解析结果类
      * @param result 解析结果过程存储的Map
-     * @param <T>
+     * @param <T> 对象泛型
      * @return 解析结果对象
      */
     public <T> T parse(String data, FieldDefine fieldDefine, Class<T> clazz, Map result) {
@@ -45,7 +45,7 @@ public abstract class Parser {
      * 根据多个字段解析规则解析多个页面，输出结果对象
      * @param wraps 多个解析页面和解析定义的组合
      * @param clazz 解析结果类
-     * @param <T>
+     * @param <T> 对象泛型
      * @return 解析结果对象
      */
     public <T> T parse(ParserWrap[] wraps, Class<T> clazz) {
@@ -60,7 +60,7 @@ public abstract class Parser {
      * 根据多个字段解析规则解析多个页面，输出结果对象
      * @param wraps 多个解析页面和解析定义的组合
      * @param clazz 解析结果类
-     * @param <T>
+     * @param <T> 对象泛型
      * @return 解析结果对象
      */
     public <T> T parse(List<ParserWrap> wraps, Class<T> clazz) {
@@ -84,9 +84,9 @@ public abstract class Parser {
     }
 
     /**
-     * 定义的字段类型转换成相应的Class<?>
-     * @param type
-     * @return
+     * 定义的字段类型转换成相应的Class
+     * @param type 字段类型字符串
+     * @return 相应的Class
      */
     protected Class<?> typeToClass(String type) {
         FieldTypeEnum typeEnum = FieldTypeEnum.parse(type);
@@ -98,10 +98,10 @@ public abstract class Parser {
 
     /**
      * 根据字段定义将结果值转换成相应类型的值
-     * @param define
-     * @param rootObject
-     * @param value
-     * @return
+     * @param define 字段解析定义
+     * @param rootObject 根对象
+     * @param value 当前对象
+     * @return 相应类型的对象
      */
     protected Object castValue(FieldDefine define, Object rootObject, Object value) {
         //特殊处理
@@ -114,10 +114,10 @@ public abstract class Parser {
 
     /**
      * 获取字符串列表第一项作为最终的值，并进行相应的类型转换
-     * @param list
-     * @param rootObject
-     * @param define
-     * @return
+     * @param list 列表
+     * @param rootObject 根对象
+     * @param define 字段解析定义
+     * @return 相应类型的对象
      */
     protected Object getValue(List<String> list, Object rootObject, FieldDefine define) {
         return castValue(define, rootObject, list != null && list.size() > 0 ? list.get(0) : null);

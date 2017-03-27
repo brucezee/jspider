@@ -54,8 +54,8 @@ public class SpiderTimeUtils {
 
     /**
      * 格式化日期字符串，兼容部分通用日期格式
-     * @param timeText
-     * @return
+     * @param timeText 日期字符串
+     * @return 字符串对应的日期
      */
     public static Date parseDate(String timeText) {
         if (StringUtils.isBlank(timeText)) {
@@ -127,7 +127,7 @@ public class SpiderTimeUtils {
      * @param timeText 日期字符串
      * @param pattern 原字符串的日期格式
      * @param resultPattern 新日期的格式
-     * @return
+     * @return 指定的另外一种格式的日期字符串
      */
     public static String parseDateString(String timeText, String pattern, String resultPattern) {
         Date date = parseDate(timeText, pattern);
@@ -141,7 +141,7 @@ public class SpiderTimeUtils {
      * 将日期字符串转换成另外一种格式的日期字符串
      * @param timeText 日期字符串
      * @param resultPattern 新日期的格式
-     * @return
+     * @return 指定的另外一种格式的日期字符串
      */
     public static String parseDateString(String timeText, String resultPattern) {
         return parseDateString(timeText, null, resultPattern);

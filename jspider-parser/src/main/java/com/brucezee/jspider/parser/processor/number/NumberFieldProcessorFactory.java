@@ -7,8 +7,8 @@ package com.brucezee.jspider.parser.processor.number;
 public class NumberFieldProcessorFactory {
     /**
      * 创建字段处理器
-     * @param cls
-     * @return
+     * @param cls 类型
+     * @return 具体的数字类处理器
      */
     public NumberFieldProcessor createFieldProcessor(Class<?> cls) {
         if (cls == Double.class) {

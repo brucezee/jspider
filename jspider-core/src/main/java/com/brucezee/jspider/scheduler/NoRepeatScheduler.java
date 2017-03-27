@@ -68,7 +68,7 @@ public abstract class NoRepeatScheduler implements Scheduler, RepeatHandler {
      * 控制任务添加
      * @param task 任务
      * @param request 请求
-     * @return
+     * @return 是否需要强制添加
      */
     protected boolean shouldReserved(Task task, Request request) {
         return false;

@@ -9,7 +9,7 @@ public interface FieldProcessor<T> {
      * 处理字段值
      * @param rootObject 完整内容对象
      * @param value 字段值
-     * @return
+     * @return 处理结果
      */
     public T process(Object rootObject, String value);
 }

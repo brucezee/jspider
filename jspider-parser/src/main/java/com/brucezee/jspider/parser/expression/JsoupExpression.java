@@ -120,8 +120,8 @@ public class JsoupExpression {
 
     /**
      * 去除字符串两端的空格及双引号
-     * @param text
-     * @return
+     * @param text 文本
+     * @return 处理后的字符串
      */
     private String trimQuotation(String text) {
         text = StringUtils.trim(text);

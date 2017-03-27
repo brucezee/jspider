@@ -24,8 +24,8 @@ public class Charsets {
 
     /**
      * 设置域名对应字符集
-     * @param host
-     * @param charset
+     * @param host 域名关键字
+     * @param charset 字符集
      */
     public void put(String host, String charset) {
         charsets.put(host, charset);
@@ -33,8 +33,8 @@ public class Charsets {
 
     /**
      * 获取某个域名对应的字符集
-     * @param host
-     * @return
+     * @param host 域名关键字
+     * @return 失败返回null
      */
     public String get(String host) {
         String ch = charsets.get(host);
@@ -43,7 +43,7 @@ public class Charsets {
 
     /**
      * 设置通用字符集
-     * @param charset
+     * @param charset 字符集
      */
     public void setCommonCharset(String charset) {
         put("*", charset);
@@ -51,7 +51,7 @@ public class Charsets {
 
     /**
      * 获取通用字符集
-     * @return
+     * @return 通用字符集
      */
     public String getCommonCharset() {
         return charsets.get("*");
@@ -59,8 +59,8 @@ public class Charsets {
 
     /**
      * 匹配url获取相应字符集
-     * @param url
-     * @return
+     * @param url 网址
+     * @return 失败返回null
      */
     public String match(String url) {
         String commonCharset = getCommonCharset();

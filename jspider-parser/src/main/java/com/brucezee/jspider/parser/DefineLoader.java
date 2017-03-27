@@ -29,7 +29,7 @@ public class DefineLoader {
     /**
      * 从文件中解析xml并获取第一个字段解析定义
      * @param path 文件路径
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(String path) {
         return getFieldDefine(path, null);
@@ -38,7 +38,7 @@ public class DefineLoader {
     /**
      * 从文件中解析xml并获取第一个字段解析定义
      * @param file 文件
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(File file) {
         return getFieldDefine(file, null);
@@ -47,7 +47,7 @@ public class DefineLoader {
     /**
      * 从流中解析xml并获取第一个字段解析定义
      * @param is 数据流
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(InputStream is) {
         return getFieldDefine(is, null);
@@ -56,7 +56,7 @@ public class DefineLoader {
     /**
      * 从Reader中解析xml并获取第一个字段解析定义
      * @param reader Reader
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(Reader reader) {
         return getFieldDefine(reader, null);
@@ -66,7 +66,7 @@ public class DefineLoader {
      * 从文件中解析xml并获取指定id的字段解析定义
      * @param path 文件路径
      * @param id 字段解析定义的id
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(String path, String id) {
         return getFieldDefine(new File(path), id);
@@ -76,7 +76,7 @@ public class DefineLoader {
      * 从文件中解析xml并获取指定id的字段解析定义
      * @param file 文件
      * @param id 字段解析定义的id
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(File file, String id) {
         return getFieldDefine(file, null, null, id);
@@ -86,7 +86,7 @@ public class DefineLoader {
      * 从流中解析xml并获取指定id的字段解析定义
      * @param is 数据流
      * @param id 字段解析定义的id
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(InputStream is, String id) {
         return getFieldDefine(null, is, null, id);
@@ -96,7 +96,7 @@ public class DefineLoader {
      * 从Reader中解析xml并获取指定id的字段解析定义
      * @param reader Reader
      * @param id 字段解析定义的id
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine getFieldDefine(Reader reader, String id) {
         return getFieldDefine(null, null, reader, id);
@@ -122,7 +122,7 @@ public class DefineLoader {
     /**
      * 从文件中解析xml返回多个以id为key的字段解析定义映射
      * @param path 文件路径
-     * @return
+     * @return 多个字段解析定义
      */
     public static Map<String, FieldDefine> getFieldDefines(String path) {
         return getFieldDefines(new File(path));
@@ -131,7 +131,7 @@ public class DefineLoader {
     /**
      * 从文件中解析xml返回多个以id为key的字段解析定义映射
      * @param file 文件
-     * @return
+     * @return 多个字段解析定义
      */
     public static Map<String, FieldDefine> getFieldDefines(File file) {
         return getFieldDefines(file, null, null);
@@ -140,7 +140,7 @@ public class DefineLoader {
     /**
      * 从流中解析xml返回多个以id为key的字段解析定义映射
      * @param is 流
-     * @return
+     * @return 多个字段解析定义
      */
     public static Map<String, FieldDefine> getFieldDefines(InputStream is) {
         return getFieldDefines(null, is, null);
@@ -149,7 +149,7 @@ public class DefineLoader {
     /**
      * 从Reader中解析xml返回多个以id为key的字段解析定义映射
      * @param reader Reader
-     * @return
+     * @return 多个字段解析定义
      */
     public static Map<String, FieldDefine> getFieldDefines(Reader reader) {
         return getFieldDefines(null, null, reader);
@@ -177,7 +177,7 @@ public class DefineLoader {
     /**
      * 解析xml文本并获取第一个字段解析定义
      * @param xml xml定义
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine parseFieldDefine(String xml) {
         return parseFieldDefine(xml, null);
@@ -187,7 +187,7 @@ public class DefineLoader {
      * 解析xml文本并获取指定id的字段解析定义
      * @param xml xml定义
      * @param id 字段解析定义的id
-     * @return
+     * @return 字段解析定义
      */
     public static FieldDefine parseFieldDefine(String xml, String id) {
         Map<String, FieldDefine> defineMap = parseFieldDefines(xml);

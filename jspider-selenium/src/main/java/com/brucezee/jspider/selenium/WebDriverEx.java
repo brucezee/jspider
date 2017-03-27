@@ -91,7 +91,7 @@ public class WebDriverEx extends RemoteWebDriver {
 
     /**
      * 根据标题中包含某个子串来等待
-     * @param title
+     * @param title 标题子串
      */
     public void waitWithTitle(final String title) {
         waitWithTitle(title, DEFAULT_TIME_OUT_IN_MILLIS);
@@ -117,8 +117,8 @@ public class WebDriverEx extends RemoteWebDriver {
 
     /**
      * 根据标题中包含某个子串来等待并且延迟一段时间
-     * @param title
-     * @param delayedMillis
+     * @param title 标题子串
+     * @param delayedMillis 延迟毫秒数
      */
     public void waitWithTitleAndDelayed(final String title, int delayedMillis) {
         waitWithTitleAndDelayed(title, DEFAULT_TIME_OUT_IN_MILLIS, delayedMillis);
@@ -126,7 +126,7 @@ public class WebDriverEx extends RemoteWebDriver {
 
     /**
      * 根据标题中包含某个子串来等待并且延迟一段时间
-     * @param title
+     * @param title 标题子串
      */
     public void waitWithTitleAndDelayed(final String title) {
         waitWithTitleAndDelayed(title, DEFAULT_TIME_OUT_IN_MILLIS, DEFAULT_DELAYED_MILLIS);
@@ -156,7 +156,7 @@ public class WebDriverEx extends RemoteWebDriver {
 
     /**
      * 根据内容中包含某个子串来等待
-     * @param content
+     * @param content 指定的某个子串
      */
     public void waitWithContent(final String content) {
         waitWithContent(content, DEFAULT_TIME_OUT_IN_MILLIS);
@@ -182,7 +182,7 @@ public class WebDriverEx extends RemoteWebDriver {
 
     /**
      * 根据内容中包含某个子串来等待并且延迟一段时间
-     * @param content
+     * @param content 指定的某个子串
      */
     public void waitWithContentAndDelayed(final String content) {
         waitWithContentAndDelayed(content, DEFAULT_TIME_OUT_IN_MILLIS, DEFAULT_DELAYED_MILLIS);
@@ -190,8 +190,8 @@ public class WebDriverEx extends RemoteWebDriver {
 
     /**
      * 根据内容中包含某个子串来等待并且延迟一段时间
-     * @param content
-     * @param delayedMillis
+     * @param content 指定的某个子串
+     * @param delayedMillis 延迟毫秒数
      */
     public void waitWithContentAndDelayed(final String content, int delayedMillis) {
         waitWithContentAndDelayed(content, DEFAULT_TIME_OUT_IN_MILLIS, delayedMillis);

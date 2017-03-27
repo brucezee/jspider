@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * 栅栏,不允许cookie时效超过1个小时。超过的减到1个小时。避免cookie过渡膨胀。适合无长期回话保持需求的场景。其实大多数情况都是这样的 </br>
+ * 栅栏,不允许cookie时效超过1个小时。超过的减到1个小时。避免cookie过渡膨胀。适合无长期回话保持需求的场景。其实大多数情况都是这样的
  * Created by brucezee on 2017/1/10.
  */
 public class BarrierCookieStore implements CookieStore, Serializable {

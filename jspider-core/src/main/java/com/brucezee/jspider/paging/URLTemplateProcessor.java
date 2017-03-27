@@ -3,7 +3,7 @@ package com.brucezee.jspider.paging;
 import java.util.List;
 
 /**
- * 有占位符的url处理器，如http://www.nianshao.{me|com}/{menu|ticket|detail}?stype={1->2}&status={1|2|5}
+ * 有占位符的url处理器
  * Created by brucezee on 2017/1/19.
  */
 public interface URLTemplateProcessor {

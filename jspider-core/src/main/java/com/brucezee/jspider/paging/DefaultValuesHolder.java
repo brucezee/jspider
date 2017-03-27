@@ -8,10 +8,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * 条件占位符，如：{1->5}表示1到5，{A|B}表示A，B
+ * 条件占位符
  * Created by brucezee on 2017/1/19.
  */
 public class DefaultValuesHolder {
+    //处理如：{1->5}表示1到5，{A|B}表示A，B
+
     public boolean containsHolder(String text) {
         return text != null && text.contains("{") || text.contains("}");
     }

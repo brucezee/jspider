@@ -57,8 +57,8 @@ public abstract class Response<T> {
 
     /**
      * 处理响应
-     * @param httpResponse
-     * @param executeException
+     * @param httpResponse 响应
+     * @param executeException 执行异常
      */
     public void handleHttpResponse(CloseableHttpResponse httpResponse, Throwable executeException) {
         if (httpResponse != null) {
@@ -83,16 +83,16 @@ public abstract class Response<T> {
 
     /**
      * 处理响应结果
-     * @param httpResponse
-     * @return
-     * @throws Throwable
+     * @param httpResponse 响应
+     * @return 处理结果
+     * @throws Throwable 异常
      */
     protected abstract T handleHttpResponseResult(CloseableHttpResponse httpResponse) throws Throwable;
 
     /**
      * 关闭请求响应
-     * @param httpResponse
-     * @throws Throwable
+     * @param httpResponse 响应
+     * @throws Throwable 异常
      */
     protected abstract void closeHttpResponse(CloseableHttpResponse httpResponse) throws Throwable;
 

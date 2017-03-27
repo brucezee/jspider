@@ -7,17 +7,17 @@ package com.brucezee.jspider.parser.processor;
 public abstract class BaseFieldProcessor<T> implements FieldProcessor<T> {
     /**
      * 将已经格式化好的对象转换成最终结果对象
-     * @param rootObject
-     * @param value
-     * @return
+     * @param rootObject 根对象
+     * @param value 当前值
+     * @return 处理结果
      */
     protected abstract T parse(Object rootObject, String value);
 
     /**
      * 格式化对象，将对象转换成最终需要的字段
-     * @param rootObject
-     * @param value
-     * @return
+     * @param rootObject 根对象
+     * @param value 当前值
+     * @return 格式化后的字符串
      */
     protected abstract String format(Object rootObject, String value);
 

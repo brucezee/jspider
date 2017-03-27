@@ -7,7 +7,7 @@ package com.brucezee.jspider;
 public interface Task {
     /**
      * 获取任务唯一标志
-     * @return
+     * @return 任务唯一标志
      */
     public String getUUID();
 

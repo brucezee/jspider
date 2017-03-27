@@ -149,7 +149,7 @@ public class SpiderStrUtils {
 
     /**
      * 获取uuid
-     * @return
+     * @return uuid
      */
     public static String getUUID() {
         return UUID.randomUUID().toString().replace("-", "");
@@ -157,7 +157,7 @@ public class SpiderStrUtils {
 
     /**
      * 获取随机Spider的uuid
-     * @return
+     * @return Spider的uuid
      */
     public static String getSpiderUUID() {
         return "Spider" + RandomUtils.nextInt(10000, 100000);
