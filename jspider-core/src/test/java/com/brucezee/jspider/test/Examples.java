@@ -1,21 +1,15 @@
-# JSpider
-A simple, scalable, and highly efficient web crawler framework for Java.
+package com.brucezee.jspider.test;
 
-## Quick start
+import com.brucezee.jspider.Page;
+import com.brucezee.jspider.Request;
+import com.brucezee.jspider.Result;
+import com.brucezee.jspider.Spider;
+import com.brucezee.jspider.processor.PageProcessor;
+import org.jsoup.select.Elements;
 
-Add dependencies:
-
-```xml
-<dependency>
-    <groupId>com.brucezee.jspider</groupId>
-    <artifactId>jspider-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
-</dependency>
-```xml
-
-Hello world:
-
-```java
+/**
+ * Created by brucezee on 2017/3/27.
+ */
 public class Examples {
     public static void main(String[] args) {
         //page processor
@@ -47,18 +41,3 @@ public class Examples {
             .start();
     }
 }
-```java
-
-### Thanks
-
-* **webmagic**
-
-	A scalable web crawler framework for Java.
-
-	[https://github.com/code4craft/webmagic](https://github.com/code4craft/webmagic)
-
-### Mail list
-
-* [brucezee#163.com](brucezee#163.com)
-
-* QQ group: 513469028

@@ -5,7 +5,7 @@ import com.brucezee.jspider.Request;
 import com.brucezee.jspider.Result;
 
 /**
- * 内容处理器
+ * 页面解析器
  * Created by brucezee on 2017/1/4.
  */
 public interface PageProcessor {

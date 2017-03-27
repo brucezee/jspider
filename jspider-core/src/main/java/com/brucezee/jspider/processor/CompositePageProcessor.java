@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 混合内容处理器
+ * 混合页面解析器
  * Created by brucezee on 2017/1/13.
  */
 public class CompositePageProcessor implements PageProcessor {

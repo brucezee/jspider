@@ -13,4 +13,8 @@ public class Config {
      * 全局默认日期时间格式
      */
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    /**
+     * 默认爬虫线程池数量
+     */
+    public static final int DEFAULT_THREAD_COUNT = 2;
 }

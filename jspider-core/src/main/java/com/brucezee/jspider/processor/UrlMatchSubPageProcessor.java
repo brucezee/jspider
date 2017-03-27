@@ -5,7 +5,7 @@ import com.brucezee.jspider.Request;
 import java.util.regex.Pattern;
 
 /**
- * 通过正则匹配请求url的子内容处理器
+ * 通过正则匹配请求url的子页面解析器
  * Created by brucezee on 2017/1/13.
  */
 public abstract class UrlMatchSubPageProcessor implements SubPageProcessor {

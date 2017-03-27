@@ -38,10 +38,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Spider implements Runnable, Task {
     private static final Logger logger = LoggerFactory.getLogger(Spider.class);
 
-    public static void main(String[] args) {
-
-    }
-
     @Override
     public void run() {
         init();
@@ -56,6 +52,7 @@ public class Spider implements Runnable, Task {
 
     @Override
     public void start() {
+        //异步执行
         runAsync();
     }
 
@@ -68,38 +65,41 @@ public class Spider implements Runnable, Task {
         }
     }
 
-    protected PageProcessor pageProcessor;
-    protected Downloader downloader;
-    protected Scheduler scheduler;
-    protected Pipeline pipeline;
-    protected SiteConfig siteConfig;
-    protected SpiderConfig spiderConfig;
-    protected HttpClientPool httpClientPool;
-    protected HttpProxyPool httpProxyPool;
-    protected CookieStorePool cookieStorePool;
+    protected PageProcessor pageProcessor;      //页面解析器
+    protected Downloader downloader;            //请求任务下载器
+    protected Scheduler scheduler;              //请求任务调度器
+    protected Pipeline pipeline;                //结果集处理器
+    protected SiteConfig siteConfig;            //网络请求配置
+    protected SpiderConfig spiderConfig;        //爬虫任务配置
+    protected HttpClientPool httpClientPool;    //HttpClient池
+    protected HttpProxyPool httpProxyPool;      //Http代理池
+    protected CookieStorePool cookieStorePool;  //CookieStore池
 
-    protected String uuid;
-    protected int threadCount;
+    protected String uuid;                      //爬虫任务id
+    protected int threadCount;                  //爬虫任务线程池大小
 
-    protected ThreadPool threadPool;
+    protected ThreadPool threadPool;            //线程池
 
-    private ReentrantLock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
+    private ReentrantLock lock = new ReentrantLock();   //锁
+    private Condition condition = lock.newCondition();  //锁对应条件
 
-    protected AtomicInteger stat = new AtomicInteger(Status.Init.getValue());
+    protected AtomicInteger stat = new AtomicInteger(Status.Init.getValue());   //爬虫状态
 
-    private List<SpiderListener> spiderListeners;
-    private List<Request> startRequests;
-    private Date startTime;
+    private List<SpiderListener> spiderListeners;       //爬虫任务监听器列表
+    private List<Request> startRequests;                //初始化请求任务
+    private Date startTime;                             //爬虫任务开始时间
 
+    public static Spider create(String uuid, int threadCount, PageProcessor pageProcessor) {
+        return create(SpiderConfig.create(uuid, threadCount), SiteConfig.create(), pageProcessor);
+    }
+    public static Spider create(PageProcessor pageProcessor) {
+        return create(SpiderConfig.create(SpiderStrUtils.getSpiderUUID(), Config.DEFAULT_THREAD_COUNT), SiteConfig.create(), pageProcessor);
+    }
     public static Spider create(SpiderConfig spiderConfig, SiteConfig siteConfig, PageProcessor pageProcessor) {
         return new Spider(spiderConfig, siteConfig, pageProcessor);
     }
-    public static Spider create(String uuid, int threadCount, PageProcessor pageProcessor) {
-        return new Spider(SpiderConfig.create(uuid, threadCount), SiteConfig.create(), pageProcessor);
-    }
-    public static Spider create(PageProcessor pageProcessor) {
-        return new Spider(SpiderConfig.create(SpiderStrUtils.getSpiderUUID(), 1), SiteConfig.create(), pageProcessor);
+    public static Spider create() {
+        return create(null);
     }
 
     public Spider(SpiderConfig spiderConfig, SiteConfig siteConfig, PageProcessor pageProcessor) {
