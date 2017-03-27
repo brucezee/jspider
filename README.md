@@ -11,7 +11,7 @@ Add dependencies:
     <artifactId>jspider-core</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
-```xml
+```
 
 Hello world:
 
@@ -47,7 +47,7 @@ public class Examples {
             .start();
     }
 }
-```java
+```
 
 ### Thanks
 
