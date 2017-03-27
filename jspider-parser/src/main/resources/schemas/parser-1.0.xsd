@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://jspider/schema/defines"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://jspider/schema/defines"
+           elementFormDefault="qualified"
+           >
+
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+
+    <xs:element name="defines">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="define" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="define">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="selector" type="xs:string" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="processor" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="define" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attributeGroup ref="defineAttributeGroup" />
+        </xs:complexType>
+    </xs:element>
+
+    <!--属性-->
+    <xs:attributeGroup name="defineAttributeGroup">
+        <xs:attribute name="id" type="xs:string" />
+        <xs:attribute name="type" type="defineTypes" use="required" /> <!--必填-->
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="selector" type="xs:string" />
+    </xs:attributeGroup>
+
+    <!--定义字段类型-->
+    <xs:simpleType name="defineTypes">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Object" />
+            <xs:enumeration value="Map" />
+            <xs:enumeration value="String" />
+            <xs:enumeration value="Double" />
+            <xs:enumeration value="Integer" />
+            <xs:enumeration value="Long" />
+            <xs:enumeration value="Float" />
+            <xs:enumeration value="Array" />
+            <xs:enumeration value="List" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="processor">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="argument" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attributeGroup ref="processorAttributeGroup" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attributeGroup name="processorAttributeGroup">
+        <xs:attribute name="class" type="xs:string" use="required" />
+    </xs:attributeGroup>
+
+</xs:schema>
