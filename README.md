@@ -9,7 +9,25 @@ Add dependencies:
 <dependency>
     <groupId>com.brucezee.jspider</groupId>
     <artifactId>jspider-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+</dependency>
+```
+
+Redis(Additional)
+```xml
+<dependency>
+    <groupId>com.brucezee.jspider</groupId>
+    <artifactId>jspider-redis</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
+Selenium(Additional)
+```xml
+<dependency>
+    <groupId>com.brucezee.jspider</groupId>
+    <artifactId>jspider-selenium</artifactId>
+    <version>1.0</version>
 </dependency>
 ```
 
@@ -42,9 +60,9 @@ public class Examples {
 
         //create, config and start
         Spider.create()
-            .setPageProcessor(pageProcessor)
-            .addStartRequests("http://www.baidu.com")
-            .start();
+                .setPageProcessor(pageProcessor)
+                .addStartRequests("http://www.baidu.com")
+                .start();
     }
 }
 ```
@@ -135,6 +153,50 @@ public class Examples2 {
     }
 }
 ```
+
+## Spider components
+
+### Scheduler
+Scheduler is a request task queue manager.
+
+Default scheduler with BlockingQueue:
+
+* **QueueScheduler**
+* **QueuePriorityScheduler**
+
+Distributed scheduler with redis:
+
+* **RedisScheduler**
+* **RedisPriorityScheduler**
+* **ShardedRedisScheduler**
+* **ShardedRedisPriorityScheduler**
+
+### Downloader
+Downloader is a http request executor and processor.
+
+Default downloader with HttpClient:
+
+* **HttpClientDownloader**
+* **WebDriverDownloader**
+
+### PageProcessor
+PageProcessor is a response (text、bytes、stream) handler, handing response and return a result map.
+
+### Pipeline
+Pipeline is a result handler
+
+* **Pipeline**
+* **SubPipeline**
+* **CompositePipeline**
+* **ConsolePipeline**
+* **LogPipeline**
+* **UrlMatchSubPipeline**
+
+### Request
+Request contains http request information and extra parameters.
+
+### Page
+Page is a response result(a html page, a json text, a bytes array, a input stream).
 
 
 ### Thanks
