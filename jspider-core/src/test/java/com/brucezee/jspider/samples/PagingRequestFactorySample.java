@@ -1,4 +1,4 @@
-package com.brucezee.jspider.test;
+package com.brucezee.jspider.samples;
 
 import com.brucezee.jspider.*;
 import com.brucezee.jspider.paging.PagingRequestFactory;
@@ -14,17 +14,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by brucezee on 2017/1/17.
+ * 通过手动的方式返回多个请求任务
+ * Created by brucezee on 2017/9/23.
  */
-public class PagingSpiderTest {
+public class PagingRequestFactorySample {
+
     public static void main(String[] args) {
-        Spider spider = Spider.create(new NianshaoPageProcessor())
+        Spider.create()
                 .setUUID("nianshao")
                 .setThreadCount(5)
                 .setSiteConfig(SiteConfig.create().putCharset("nianshao", "gbk"))
                 .setPipeline(new NianshaoPipeline())
-                .setScheduler(new QueueScheduler(new NianshaoPagingRequestFactory()));
-        spider.run();
+                .setPageProcessor(new NianshaoPageProcessor())
+                .setScheduler(new QueueScheduler(new NianshaoPagingRequestFactory()))  //设置PagingRequestFactory
+                .start();
     }
 
     public static class NianshaoPageProcessor implements PageProcessor {
@@ -55,27 +58,26 @@ public class PagingSpiderTest {
         }
     }
 
-    private static int count = 0;
     public static class NianshaoPipeline implements Pipeline {
         @Override
         public void persist(Request request, Result result) {
-            System.out.println((++count) + "\t" + request.getUrl() + "\t" + result);
+            System.out.println(request.getUrl() + "\t" + result);
         }
     }
 
     public static class NianshaoPagingRequestFactory implements PagingRequestFactory {
-        int[] types = new int[] {1,2,3,4,5};
+        int[] types = new int[] {1, 2, 3, 4, 5};
 
         @Override
         public List<Request> getRequests(Task task) {
+            //构造多个请求任务
             List<Request> requests = new ArrayList<Request>();
             for (int type : types) {
                 for (int pageNo = 1; pageNo <= 10; pageNo++) {
-                    String url = "http://www.nianshao.me/?stype="+type+"&page="+pageNo;
+                    String url = "http://www.nianshao.me/?stype=" + type + "&page=" + pageNo;
                     requests.add(new Request(url));
                 }
             }
-            System.out.println("take.........");
             return requests;
         }
     }

@@ -1,9 +1,11 @@
 # JSpider
 A simple, scalable, and highly efficient web crawler framework for Java.
 
-## Quick start
+一个简单高效扩展性良好的Java网络爬虫框架。
 
-Add dependencies:
+## Quick start 快速开始
+
+添加Maven依赖：
 
 ```xml
 <dependency>
@@ -13,7 +15,8 @@ Add dependencies:
 </dependency>
 ```
 
-Redis(Additional)
+使用Redis作为请求任务调度器（非必须）：
+
 ```xml
 <dependency>
     <groupId>com.brucezee.jspider</groupId>
@@ -22,7 +25,7 @@ Redis(Additional)
 </dependency>
 ```
 
-Selenium(Additional)
+使用Selenium控制浏览器请求数据（非必须）：
 ```xml
 <dependency>
     <groupId>com.brucezee.jspider</groupId>
@@ -34,35 +37,37 @@ Selenium(Additional)
 Hello world:
 
 ```java
-public class Examples {
+public class HelloWorldSample {
+
     public static void main(String[] args) {
-        //page processor
-        PageProcessor pageProcessor = new PageProcessor() {
-            @Override
-            public Result process(Request request, Page page) {
-                Result result = new Result();
-
-                //parse html
-                result.put("title", page.document().title());
-
-                //find new urls
-                Elements elements = page.document().select("a");
-                for (int i = 0; i < 10 && i < elements.size(); i++) {
-                    String url = elements.get(i).absUrl("href");
-                    if (url.contains("baidu")) {
-                        page.addTargetRequest(url);
-                    }
-                }
-
-                return result;
-            }
-        };
-
         //create, config and start
-        Spider.create()
-                .setPageProcessor(pageProcessor)
-                .addStartRequests("http://www.baidu.com")
-                .start();
+        Spider.create()                                                 //创建爬虫实例
+                .addStartRequests("https://www.baidu.com")           //添加起始url
+                .setPageProcessor(new HelloWorldPageProcessor())        //设置页面解析器
+                .start();                                               //开始抓取
+    }
+
+    public static class HelloWorldPageProcessor implements PageProcessor {
+        @Override
+        public Result process(Request request, Page page) {
+            Result result = new Result();
+
+            //解析HTML采用jsoup框架，详见：https://jsoup.org/
+
+            //解析页面标题
+            result.put("title", page.document().title());
+
+            //获取页面上的新的链接地址
+            Elements elements = page.document().select("a");        //获取所有a标签
+            for (int i = 0; i < elements.size(); i++) {
+                String url = elements.get(i).absUrl("href");    //获取绝对url
+                if (url != null && url.contains("baidu")) {
+                    page.addTargetRequest(url);     //获取新url添加到任务队列
+                }
+            }
+
+            return result;
+        }
     }
 }
 ```
@@ -70,133 +75,143 @@ public class Examples {
 Customize spider with config:
 
 ```java
-public class Examples2 {
+public class FullConfigSample {
+
     public static void main(String[] args) {
-        //page processor
-        PageProcessor pageProcessor = new PageProcessor() {
-            @Override
-            public Result process(Request request, Page page) {
-                Result result = new Result();
+        //爬虫任务相关配置
+        SpiderConfig spiderConfig = SpiderConfig.create("MySpider", 5)  //配置爬虫任务标识和线程数量
+                .setExitWhenComplete(false) //任务完成后是否退出循环
+                .setDestroyWhenExit(true)   //任务结束后是否销毁所有相关实体
+                .setEmptySleepMillis(30000) //任务为空时休眠间隔
+                .setCloseDelayMillis(60000); //任务结束后销毁相关实体最长等待时间
 
-                //parse html
-                result.put("title", page.document().title());
-
-                //find new urls
-                Elements elements = page.document().select("a");
-                for (int i = 0; i < 10 && i < elements.size(); i++) {
-                    String url = elements.get(i).absUrl("href");
-                    if (url.contains("baidu")) {
-                        page.addTargetRequest(url);
-                    }
-                }
-
-                return result;
-            }
-        };
-
-        Pipeline pipeline = new Pipeline() {
-            @Override
-            public void persist(Request request, Result result) {
-                //persist or print result
-                System.out.println("Request: " + request.getUrl() + " result: " + result);
-            }
-        };
-
-        //spider config
-        SpiderConfig spiderConfig = SpiderConfig.create("custom spider name", 5)
-                .setUUID("custom spider name")
-                .setThreadCount(5)
-                .setExitWhenComplete(false)
-                .setDestroyWhenExit(true)
-                .setEmptySleepMillis(30000)
-                .setCloseDelayMillis(60000)
-                ;
-
-        //web site config
+        //网络相关配置
         SiteConfig siteConfig = SiteConfig.create()
-                .setConnectionRequestTimeout(15000)
-                .setConnectTimeout(30000)
-                .setSocketTimeout(45000)
-                .setSoKeepAlive(true)
-                .setTcpNoDelay(true)
-                .setBufferSize(8192)
-                .setMaxIdleTimeMillis(1000 * 60 * 60)
-                .setMaxConnTotal(200)
-                .setMaxConnPerRoute(100)
-                .setConnTimeToLiveMillis(-1)
-                .setCookieSpec("custom cookie spec")
-                .setRedirectsEnabled(true)
-                .setRelativeRedirectsAllowed(true)
-                .setCircularRedirectsAllowed(false)
-                .setMaxRedirects(3)
-
-                .addHeader("User-Agent", "custom user agent")
-                .addHeader("Accept", "custom accept")
-
-                .putCharset("baidu.com", "UTF-8")
-                .putCharset("alibaba.com", "GBK");
+                .setConnectionRequestTimeout(15000) //连接请求超时毫秒数
+                .setConnectTimeout(30000)           //连接超时毫秒数
+                .setSocketTimeout(45000)            //读取超时毫秒数
+                .setSoKeepAlive(true)               //soKeepAlive
+                .setTcpNoDelay(true)                //tcpNoDelay
+                .setBufferSize(8192)                //缓冲字节数组大小
+                .setMaxIdleTimeMillis(1000 * 60 * 60)//最大空闲时间毫秒数
+                .setMaxConnTotal(200)               //连接池最大连接数
+                .setMaxConnPerRoute(100)            //每个路由最大连接数
+                .setConnTimeToLiveMillis(-1)        //持久化连接最大存活时间毫秒数
+                .setCookieSpec("SomeCookieSpec")   //Cookie策略名
+                .setRedirectsEnabled(true)          //是否允许自动跳转
+                .setRelativeRedirectsAllowed(true)  //是否允许相对路径跳转
+                .setCircularRedirectsAllowed(false) //是否允许循环跳转
+                .setMaxRedirects(3)                 //最大跳转数
+                .addHeader("User-Agent", "Chrome/55.0.2883.87 Safari/537.36")   //添加公共请求Header
+                .putCharset("aweb.com", "UTF-8")    //添加不同网站的页面字符集
+                .putCharset("bweb.net", "GBK");
 
         //create, config and start
-        Spider.create(spiderConfig, siteConfig, pageProcessor)
-                .setUUID()
-                .setThreadCount()
-                .setPipeline(pipeline)
-                .setScheduler()
-                .setCookieStorePool()
-                .setDownloader()
-                .setHttpClientPool()
-                .setHttpProxyPool()
-                .setSpiderListeners()
-                .addSpiderListeners()
-                .addStartRequests("http://www.baidu.com")
+        Spider.create(spiderConfig, siteConfig, new HelloWorldSample.HelloWorldPageProcessor())
+                .setUUID("MySpider")                //爬虫任务标识
+                .setThreadCount(5)                   //线程数量
+                .setPipeline(new CustomPipeline())  //设置结果集处理器
+                .setScheduler(new QueueScheduler()) //设置请求任务调度器
+                .setCookieStorePool(null)   //设置CookieStore池
+                .setDownloader(null)        //设置下载器
+                .setHttpClientPool(null)    //设置HttpClient池
+                .setHttpProxyPool(null)     //设置代理池
+                .setSpiderListeners(null)   //设置爬虫过程监听
+                .addStartRequests("https://www.baidu.com")  //添加初始url
                 .start();
+    }
+
+    public static class CustomPipeline implements Pipeline {
+        @Override
+        public void persist(Request request, Result result) {
+            //从result对象中获取解析结果数据
+            String title = result.getAs("title");
+            //持久化数据到数据库或文件
+            System.out.println("title=" + title);
+        }
     }
 }
 ```
 
-## Spider components
+## Spider components 爬虫核心组件
 
-### Scheduler
-Scheduler is a request task queue manager.
+### Spider 爬虫任务实例
 
-Default scheduler with BlockingQueue:
+Spider主要负责协调各个爬虫核心组件工作，一个Spider实例就是一个爬虫工作单元。
+    
+SpiderConfig和SiteConfig共同完成爬虫任务的配置工作。
+
+### Scheduler 请求任务调度器
+
+Scheduler是一个用于实现请求任务的保存和获取的接口。
+
+通过BlockingQueue实现的内存请求任务调度器：
 
 * **QueueScheduler**
 * **QueuePriorityScheduler**
 
-Distributed scheduler with redis:
+通过Redis的list和set实现的分布式请求任务调度器:
 
 * **RedisScheduler**
 * **RedisPriorityScheduler**
 * **ShardedRedisScheduler**
 * **ShardedRedisPriorityScheduler**
 
-### Downloader
-Downloader is a http request executor and processor.
+### Downloader 请求任务下载器
 
-Default downloader with HttpClient:
+Downloader是一个用于实现Http请求的接口。
+
+默认通过HttpClient实现的请求任务下载器：
 
 * **HttpClientDownloader**
+
+通过WebDriver控制浏览器实现的请求任务下载器：
+
 * **WebDriverDownloader**
 
-### PageProcessor
-PageProcessor is a response (text、bytes、stream) handler, handing response and return a result map.
+### PageProcessor 页面解析器
 
-### Pipeline
-Pipeline is a result handler
+PageProcessor是一个实现响应数据的解析并返回解析结果的接口。
+响应数据可以是文本，字节数组或输入流。
+这个接口需要使用者手动实现。
 
-* **Pipeline**
-* **SubPipeline**
-* **CompositePipeline**
+为了满足对不同请求进行不同的处理，增加了SubPageProcessor接口和组合PageProcessor的实现类CompositePageProcessor，通过
+将多个SubPageProcessor添加到CompositePageProcessor中完成PageProcessor接口的组合功能。
+
+* **SubPageProcessor**
+* **CompositePageProcessor**
+
+实现根据url判断处理的SubPageProcessor实现：
+
+* **UrlMatchSubPageProcessor**
+
+
+### Pipeline 结果集处理器
+
+Pipeline是一个用于对解析结果进行持久化的接口。
+
+后台输出或日志输出结果的实现类：
+
 * **ConsolePipeline**
 * **LogPipeline**
+
+为了满足对不同结果进行不同的处理，增加SubPipeline接口和组合Pipeline的实现类CompositePipeline，通过
+将多个SubPipeline添加的CompositePipeline中完成Pipeline接口的组合功能。
+
+* **SubPipeline**
+* **CompositePipeline**
+
+实现根据url判断处理的SubPipeline实现：
+
 * **UrlMatchSubPipeline**
 
-### Request
-Request contains http request information and extra parameters.
+### Request 请求任务
 
-### Page
-Page is a response result(a html page, a json text, a bytes array, a input stream).
+Request 是一个包含请求相关信息（url，参数，任务标识，响应类型等）的包装类.
+
+### Page 请求响应内容
+
+Page 是一个包含响应相关信息的包装类，响应的结果可以是纯文本、字节数组或输入流，这取决于请求任务配置的响应类型。
 
 
 ### Thanks
