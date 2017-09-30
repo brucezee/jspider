@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defines xmlns="http://www.neopay.cn/schema/defines"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!--==========================================json==========================================-->
+    <!--json解析第一部分-->
+    <define id="bookParser-json-part1" type="Object">
+        <define type="Integer" name="expensive" selector="$.data.product.expensive">
+            <processor class="com.brucezee.jspider.parser.processor.number.IntegerFieldProcessor" />
+        </define>
+        <define type="Object" name="store" selector="$.data.store.bookStore">
+            <define type="Object" name="bicycle" selector="$.data.store.bicycleStore.bicycle">
+                <define type="String" name="color" selector="$..color" />
+                <define type="Double" name="price" selector="$..price" />
+                <define type="String" name="bicycleStoreManager" selector="$.data.store.bicycleStore.manager" />
+            </define>
+            <define type="Array" name="book" selector="$.data.store.bookStore.book">
+                <define type="Object">
+                    <define type="String" name="category" selector="$..category" />
+                    <define type="String" name="author" selector="$..author" />
+                    <define type="String" name="title" selector="$..title" />
+                    <define type="String" name="isbnNo" selector="$..isbn" /><!--名称不一致-->
+                    <define type="Double" name="price" selector="$..price" />
+                    <define type="String" name="time" selector="$..time" >
+                        <processor class="com.brucezee.jspider.parser.processor.date.DateFormatFieldProcessor"> <!-- 指定processor -->
+                            <argument>yyyy-MM-dd</argument>
+                        </processor>
+                    </define>
+                </define>
+            </define>
+            <define type="String" name="manager" selector="$.data.store.bookStore.manager" />
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="address" selector="$.data.store.address" />
+            <define type="String" name="factoryName" selector="$.data.store.bicycleStore.factory.factoryName" />
+            <define type="String" name="storeName" selector="$.data.store.bookStore.name" />
+        </define>
+    </define>
+    <!--json解析第二部分-->
+    <define id="bookParser-json-part2" type="Object">
+        <define type="Object" name="store">
+            <define type="Array" name="book" selector="$.paymentList">
+                <define type="Object">
+                    <define type="String" name="cityCode" selector="$.user.cityCode" />
+                    <define type="Double" name="baseAmount" selector="$..baseAmount" />
+                </define>
+            </define>
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="channelCode" selector="$.user.channelCode" />
+        </define>
+    </define>
+
+    <!--==========================================xml==========================================-->
+    <!--xml解析第一部分-->
+    <define id="bookParser-xml-part1" type="Object">
+        <define type="Integer" name="expensive" selector="/root/data/product/expensive" />
+        <define type="Object" name="store" selector="/root/data/store/bookStore">
+            <define type="Object" name="bicycle" selector="/root/data/store/bicycleStore/bicycle">
+                <define type="String" name="color" selector="./color" />
+                <define type="Double" name="price" selector="./price" />
+                <define type="String" name="bicycleStoreManager" selector="/root/data/store/bicycleStore/manager" />
+            </define>
+            <define type="Array" name="book" selector="/root/data/store/bookStore/book">
+                <define type="Object">
+                    <define type="String" name="category" selector="./category" />
+                    <define type="String" name="author" selector="./author" />
+                    <define type="String" name="title" selector="./title" />
+                    <define type="String" name="isbnNo" selector="./isbn" /><!--名称不一致-->
+                    <define type="Double" name="price" selector="./price" />
+                    <define type="String" name="time" selector="./time" >
+                        <processor class="com.brucezee.jspider.parser.processor.date.DateFormatFieldProcessor"> <!-- 指定processor -->
+                            <argument>yyyy-MM-dd</argument>
+                        </processor>
+                    </define>
+                </define>
+            </define>
+            <define type="String" name="manager" selector="/root/data/store/bookStore/manager" />
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="address" selector="/root/data/store/address" />
+            <define type="String" name="factoryName" selector="/root/data/store/bicycleStore/factory/factoryName" />
+            <define type="String" name="storeName" selector="/root/data/store/bookStore/name" />
+        </define>
+    </define>
+    <!--xml解析第二部分-->
+    <define id="bookParser-xml-part2" type="Object">
+        <define type="Object" name="store">
+            <define type="Array" name="book" selector="/root/paymentList/payment">
+                <define type="Object">
+                    <define type="String" name="cityCode" selector="/root/user/cityCode" />
+                    <define type="Double" name="baseAmount" selector="./value[1]" />
+                </define>
+            </define>
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="channelCode" selector="/root/user/@channelCode" /><!--获取属性-->
+        </define>
+    </define>
+
+
+    <!--==========================================html==========================================-->
+    <!--html解析第一部分-->
+    <define id="bookParser-html-part1" type="Object">
+        <define type="Integer" name="expensive">
+            <selector><![CDATA[regex:<body([\w\W]*)</body> regex[1]:class="expensive">(.*?)</span>]]></selector> <!--解析html可以混合使用regex匹配-->
+        </define>
+        <define type="Object" name="store" selector="div.store">
+            <define type="Object" name="bicycle" selector=" #bicycleStore">
+                <define type="String" name="color" selector=" span.color" />
+                <define type="Double" name="price" selector=" span.price" />
+                <define type="String" name="bicycleStoreManager" selector=" span.manager" />
+            </define>
+            <define type="Array" name="book" selector="div#bookStore table tr">
+                <define type="Object">
+                    <define type="String" name="category" selector=" td:eq(0)" />
+                    <define type="String" name="author" selector=" td:eq(1)" />
+                    <define type="String" name="title" selector=" td:eq(2)" />
+                    <define type="String" name="isbnNo" selector=" td:eq(3)" />
+                    <define type="Double" name="price" selector=" td:eq(4)" />
+                    <define type="String" name="time" selector=" td:eq(5)" >
+                        <processor class="com.brucezee.jspider.parser.processor.date.DateFormatFieldProcessor"> <!-- 指定processor -->
+                            <argument>yyyy-MM-dd</argument>
+                        </processor>
+                    </define>
+                </define>
+            </define>
+            <define type="String" name="manager" selector="#bookStore span.manager" />
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="address" selector="div.store > span.html()" />
+            <define type="String" name="factoryName" selector="div#bicycleStore div span.factoryName" />
+            <define type="String" name="storeName">
+                <selector><![CDATA[segment:id="bookStore">($)class="tb"> segment:class="name">($TT)</span>]]></selector>
+            </define>
+        </define>
+    </define>
+    <!--html解析第二部分-->
+    <define id="bookParser-html-part2" type="Object">
+        <define type="Object" name="store">
+            <define type="Array" name="book" selector="table#paymentList tr">
+                <define type="Object">
+                    <define type="String" name="cityCode" selector="div.user span.cityCode" />
+                    <define type="Double" name="baseAmount" selector=" td:eq(0)" />
+                </define>
+            </define>
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="channelCode" selector="div.user.attr(channelCode)" /><!--获取属性-->
+        </define>
+    </define>
+
+
+    <!--==========================================regex html==========================================-->
+    <!--regex解析html第一部分-->
+    <define id="bookParser-regex-part1" type="Object">
+        <define type="Integer" name="expensive">
+            <selector><![CDATA[regex[1]:class="expensive">(.*?)</span>]]></selector>
+        </define>
+        <define type="Object" name="store">
+            <define type="Object" name="bicycle">
+                <define type="String" name="color">
+                    <selector><![CDATA[regex[1]:class="color">(.*?)</span>]]></selector>
+                </define>
+                <define type="Double" name="price">
+                    <selector><![CDATA[regex[1]:class="price">(.*?)</span>]]></selector>
+                </define>
+                <define type="String" name="bicycleStoreManager">
+                    <selector><![CDATA[regex:id="bicycleStore">([\w\W]*)</span> regex[1]:class="manager">(.*?)</span>]]></selector>
+                </define>
+            </define>
+            <define type="Array" name="book">
+                <selector><![CDATA[regex:<table([\w\W]*)</table> regex:<tr([\w\W]*?)</tr>]]></selector>
+                <define type="Object">
+                    <define type="String" name="category">
+                        <selector><![CDATA[ regex[1]:<td>(.*?)</td>]]></selector>
+                    </define>
+                    <define type="String" name="author">
+                        <selector><![CDATA[ regex[3]:<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>]]></selector>
+                    </define>
+                    <define type="String" name="title">
+                        <selector><![CDATA[ regex[5]:<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>]]></selector>
+                    </define>
+                    <define type="String" name="isbnNo">
+                        <selector><![CDATA[ regex[7]:<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>]]></selector>
+                    </define>
+                    <define type="Double" name="price">
+                        <selector><![CDATA[ regex[9]:<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>]]></selector>
+                    </define>
+                    <define type="String" name="time" >
+                        <selector><![CDATA[ regex[11]:<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>([\w\W]*?)<td>(.*?)</td>]]></selector>
+                        <processor class="com.brucezee.jspider.parser.processor.date.DateFormatFieldProcessor"> <!-- 指定processor -->
+                            <argument>yyyy-MM-dd</argument>
+                        </processor>
+                    </define>
+                </define>
+            </define>
+            <define type="String" name="manager">
+                <selector><![CDATA[regex:id="bookStore">([\w\W]*)table regex[1]:class="manager">(.*?)</span>]]></selector>
+            </define>
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="address">
+                <selector><![CDATA[regex:id="bicycleStore">([\w\W]*)id="product"> regex[1]:<span>(.*)</span>]]></selector>
+            </define>
+            <define type="String" name="factoryName">
+                <selector><![CDATA[regex:id="bicycleStore">([\w\W]*)id="product"> regex[1]:class="factoryName">(.*?)</span>]]></selector>
+            </define>
+            <define type="String" name="storeName">
+                <selector><![CDATA[regex:id="bookStore">([\w\W]*)class="tb"> regex[1]:class="name">(.*?)</span>]]></selector>
+            </define>
+        </define>
+    </define>
+    <!--regex解析html第二部分-->
+    <define id="bookParser-regex-part2" type="Object">
+        <define type="Object" name="store">
+            <define type="Array" name="book">
+                <selector><![CDATA[<table([\w\W]*?)</table> regex:<tr([\w\W]*?)</tr>]]></selector>
+                <define type="Object">
+                    <define type="String" name="cityCode">
+                        <selector><![CDATA[regex[1]:class="cityCode">(.*?)</span>]]></selector>
+                    </define>
+                    <define type="Double" name="baseAmount">
+                        <selector><![CDATA[ regex[1]:<td>(.*?)</td>([\w\W]*)<td>(.*?)</td>([\w\W]*)<td>(.*?)</td>]]></selector>
+                    </define>
+                </define>
+            </define>
+        </define>
+        <define type="Object" name="mixInfo">
+            <define type="String" name="channelCode">
+                <selector><![CDATA[regex:class="user"([\w\W]*?)</div> regex[1]:channelCode="(.*?)"]]></selector>
+            </define>
+        </define>
+    </define>
+
+</defines>

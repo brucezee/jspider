@@ -1,6 +1,7 @@
 package com.brucezee.jspider.samples;
 
 import com.brucezee.jspider.*;
+import com.brucezee.jspider.monitor.SpiderMonitor;
 import com.brucezee.jspider.pipeline.Pipeline;
 import com.brucezee.jspider.scheduler.QueueScheduler;
 
@@ -40,7 +41,7 @@ public class FullConfigSample {
                 .putCharset("bweb.net", "GBK");
 
         //create, config and start
-        Spider.create(spiderConfig, siteConfig, new HelloWorldSample.HelloWorldPageProcessor())
+        Spider spider = Spider.create(spiderConfig, siteConfig, new HelloWorldSample.HelloWorldPageProcessor())
                 .setUUID("MySpider")                //爬虫任务标识
                 .setThreadCount(5)                   //线程数量
                 .setPipeline(new CustomPipeline())  //设置结果集处理器
@@ -50,8 +51,13 @@ public class FullConfigSample {
                 .setHttpClientPool(null)    //设置HttpClient池
                 .setHttpProxyPool(null)     //设置代理池
                 .setSpiderListeners(null)   //设置爬虫过程监听
-                .addStartRequests("https://www.baidu.com")  //添加初始url
-                .start();
+                .addStartRequests("https://www.baidu.com");  //添加初始url
+
+        //监控
+        SpiderMonitor.register(spider);
+
+        //启动
+        spider.start();
     }
 
     public static class CustomPipeline implements Pipeline {

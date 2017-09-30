@@ -133,6 +133,48 @@ public class FullConfigSample {
 }
 ```
 
+爬虫核心项目内代码示例
+
+* 	[完整配置爬虫的示例](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/FullConfigSample.java)
+* 	[最简单的爬虫示例](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/HelloWorldSample.java)
+* 	[简单代理ip池实现示例](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/HttpProxyPoolImplSample.java)
+* 	[爬虫使用代理池示例](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/HttpProxyPoolSample.java)
+* 	[通过手动的方式返回多个请求任务](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/PagingRequestFactorySample.java)
+* 	[通过模板的方式返回多个请求任务](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/URLTemplateRequestFactorySample.java)
+
+爬虫Redis项目内代码示例
+* 	[使用Redis作为请求任务调度器的示例](https://github.com/brucezee/jspider/blob/master/jspider-redis/src/test/java/com/brucezee/jspider/samples/RedisSchedulerSample.java)
+
+基于文件数据库的代码示例
+* 	[基于BDB文件数据库的请求任务调度器示例](https://github.com/brucezee/jspider/blob/master/jspider-berkeley/src/test/java/com/brucezee/jspider/samples/BdbSpiderSample.java)
+
+## 项目jspider-parser
+
+该项目实现了通过配置表达式解析文本，并将最终的解析结果隐射成为结果对象。
+
+* 抓取到的文本数据data1, data2 ....
+* 最终获取到的完整数据对象ResultObject，其中包含了所有需要的字段
+* ResultObject不同字段来源于不同的文本数据，不同的字段来源于文本中不同的位置
+* 每个字段需要各自的表达式获取，表达式可以是jsonpath，xpath，正则，jsoup选择器等
+* FieldDefine定义了结果对象ResultObject的字段结构以及每个字段映射到文本数据的解析规则
+
+jspider-parser-spring是jspider-parser与spring结合的项目。
+
+页面解析框架使用示例
+* 	[使用jsoup解析文本](https://github.com/brucezee/jspider/blob/master/jspider-parser/src/test/java/com/brucezee/jspider/samples/ParseHtmlWithJsoupSample.java)
+* 	[使用正则表达式解析文本](https://github.com/brucezee/jspider/blob/master/jspider-parser/src/test/java/com/brucezee/jspider/samples/ParseHtmlWithRegexSample.java)
+* 	[使用jsonpath解析json](https://github.com/brucezee/jspider/blob/master/jspider-parser/src/test/java/com/brucezee/jspider/samples/ParseJsonWithJsonPathSample.java)
+* 	[使用xpath解析xml](https://github.com/brucezee/jspider/blob/master/jspider-parser/src/test/java/com/brucezee/jspider/samples/ParseXmlWithXPathSample.java)
+
+## 项目jspider-selenium
+
+该项目实现了使用selenium控制浏览器请求页面获取响应文本数据的功能，即实现了另外一个Downloader，使用之前需要先下载相应浏览器的驱动程序。
+
+selenium的驱动程序下载地址：[http://selenium-release.storage.googleapis.com/index.html?path=2.53/](http://selenium-release.storage.googleapis.com/index.html?path=2.53/)
+
+* 	[基于Selenium的爬虫](https://github.com/brucezee/jspider/blob/master/jspider-selenium/src/test/java/com/brucezee/jspider/samples/WebDriverSpiderSample.java)
+
+
 ## Spider components 爬虫核心组件
 
 ### Spider 爬虫任务实例

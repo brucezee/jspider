@@ -2,10 +2,8 @@ package com.brucezee.jspider.scheduler;
 
 import com.brucezee.jspider.Request;
 import com.brucezee.jspider.Task;
-import com.brucezee.jspider.scheduler.handler.RepeatHandler;
 import com.brucezee.jspider.paging.PagingRequestFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.brucezee.jspider.scheduler.handler.RepeatHandler;
 
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -15,8 +13,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by brucezee on 2017/1/7.
  */
 public abstract class NoRepeatScheduler implements Scheduler, RepeatHandler {
-    private Logger logger = LoggerFactory.getLogger(NoRepeatScheduler.class);
-
     private ReentrantLock lock = new ReentrantLock();   //锁
     private RepeatHandler repeatHandler;                //请求去重处理器
     private PagingRequestFactory pagingRequestFactory;  //分页请求任务生成器
@@ -50,14 +46,12 @@ public abstract class NoRepeatScheduler implements Scheduler, RepeatHandler {
     public boolean push(Task task, Request request) {
         if (shouldReserved(task, request)) {
             pushWhenNoRepeat(task, request);
-            logger.debug("Push to queue {}", request.key());
             return true;
         }
 
         if (!isDuplicate(task, request)) {
             pushWhenNoRepeat(task, request);
             addRepeatCheck(task, request);
-            logger.debug("Push to queue {}", request.key());
             return true;
         }
 
