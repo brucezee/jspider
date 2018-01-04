@@ -143,7 +143,7 @@ public class FullConfigSample {
 * 	[通过模板的方式返回多个请求任务](https://github.com/brucezee/jspider/blob/master/jspider-core/src/test/java/com/brucezee/jspider/samples/URLTemplateRequestFactorySample.java)
 
 爬虫Redis项目内代码示例
-* 	[使用Redis作为请求任务调度器的示例](https://github.com/brucezee/jspider/blob/master/jspider-redis/src/test/java/com/brucezee/jspider/samples/RedisSchedulerSample.java)
+* 	[使用Redis作为请求任务调度器的示例](https://github.com/brucezee/jspider/blob/master/jspider-redis/src/main/test/java/com/brucezee/jspider/samples/RedisSchedulerSample.java)
 
 基于文件数据库的代码示例
 * 	[基于BDB文件数据库的请求任务调度器示例](https://github.com/brucezee/jspider/blob/master/jspider-berkeley/src/test/java/com/brucezee/jspider/samples/BdbSpiderSample.java)
